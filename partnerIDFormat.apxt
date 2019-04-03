@@ -1,0 +1,20 @@
+trigger partnerIDFormat on Account (before insert) {
+    
+     for(Account acct : Trigger.new){  
+       String a = '1099';
+
+             if (acct.Expected_Account_Type__c == a) { 
+                 String phone = acct.Phone; 
+                 phone = phone.replace('(', '' ); 
+                 phone = phone.replace(')', '' ); 
+                 phone = phone.replace(' ', '' ); 
+                 phone = phone.replace('-', '' ); 
+                 phone = phone.replace('.', '' ); 
+                 String tenDigits; 
+                 tenDigits = phone.right(10); 
+                 acct.Partner_ID__c  = tenDigits; 
+                 
+             }
+
+     }
+}
